@@ -1,0 +1,53 @@
+/*
+ * triangle.c -- A simple example of OpenGL and GLUT.
+ *
+ */
+
+#include <GL/glut.h>
+
+void init(void)
+{
+	glClearColor(0.0, 0.0, 0.0, 0.0); /* set background color to black */
+	glColor3f(1.0, 1.0, 1.0); /* set drawing color to white */
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluOrtho2D(0, 400, 0, 500); /* defines world window */
+}
+void displayCB(void) /* function called whenever redisplay needed */
+{
+	glClear( GL_COLOR_BUFFER_BIT); /* clear the display */
+	glBegin( GL_POLYGON); /* draw filled triangle */
+	  glVertex2i(200, 125); /* specify each vertex of triangle */
+	  glVertex2i(100, 375);
+	  glVertex2i(300, 375);
+	glEnd(); /* OpenGL draws the filled triangle */
+	glFlush(); /* Complete any pending operations */
+}
+
+void keyCB(unsigned char key, int x, int y) /* called on key press */
+{
+	if (key == 'q')
+		exit(0);
+}
+
+int main(int argc, char *argv[]) {
+	int win;
+
+	glutInit(&argc, argv); /* initialize GLUT system */
+
+	glutInitDisplayMode( GLUT_RGB);
+	glutInitWindowSize(400, 500); /* width=400pixels height=500pixels */
+	win = glutCreateWindow("Triangle"); /* create window */
+
+	/* from this point on the current window is win */
+
+
+	glutDisplayFunc(displayCB); /* set display callback function*/
+	glutKeyboardFunc(keyCB); /* set keyboard callback function*/
+
+	glutMainLoop(); /* start processing events... */
+
+	/* execution never reaches this point */
+
+	return 0;
+}
